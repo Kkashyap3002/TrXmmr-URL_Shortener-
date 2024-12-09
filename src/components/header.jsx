@@ -12,12 +12,12 @@ const user = true;
 
 
   return (
-    <nav className='py-4 flex justify-between items-center'>
-        <Link to="/">
+    <nav className='py-4 flex justify-between items-center px-8 bg-gradient-to-r from-blue-500 via-purple-600 to-indigo-600 shadow-lg '>
+        <Link to="/" className="hover:underline">
             <img src="/Logo.png" className="h-16" alt="TrXmmr logo" />
         </Link>
 
-        <div>
+        <div className="space-x-4">
             {!user ?
             <Button onClick={()=> navigate("/auth")}>Login</Button>
             :

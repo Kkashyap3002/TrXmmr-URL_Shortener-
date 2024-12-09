@@ -5,12 +5,18 @@ module.exports = {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
+		backgroundImage: {
+        'gradient-primary': 'linear-gradient(to right, #6B46C1, #B794F4)',
+        'gradient-dark': 'linear-gradient(to bottom, #2D3748, #1A202C)',
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+			'primary-start': '#6B46C1',
+            'primary-end': '#B794F4',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
