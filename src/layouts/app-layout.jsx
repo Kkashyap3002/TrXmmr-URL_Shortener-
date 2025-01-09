@@ -14,7 +14,7 @@ return (
             <Outlet/>
         </main>
         <div className='p-10 text-center bg-gray-800 text-white mt-10'>
-            Made with 💗 For You :) <br /> 
+            Made with 💗 For You :) <br />
             <div className='text-yellow-500 font-extralight '>Developed by Kishan 🤞</div>
         </div>
     </div>
