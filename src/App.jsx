@@ -9,6 +9,7 @@ import Dashboard from './pages/dashboard';
 import Auth from './pages/auth';
 import Redirectlink from './pages/redirect-link';
 import CustomLink from './pages/link';
+import UrlProvider from './context';
 // Use 'RouterLink' for navigation links from 'react-router-dom'.
 // Use 'CustomLink' for the custom component defined in './pages/link'.
 
@@ -46,8 +47,9 @@ const router = createBrowserRouter([
   }
 ])
 function App() {
-
-  return <RouterProvider router = {router} />;
+  return  <UrlProvider>
+  <RouterProvider router = {router} />;
+  </UrlProvider>
 }
 
 export default App;
