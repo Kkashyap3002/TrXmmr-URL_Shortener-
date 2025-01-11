@@ -9,8 +9,8 @@ const useFetch = (cb, options = {}) => {
     setError(null);
     try {
       const response = await cb(options, ...args);
-      setError(response);
-      setData(null);
+      setData(response);
+      setError(null);
     } catch (error) {
       setError(error);
     } finally {
