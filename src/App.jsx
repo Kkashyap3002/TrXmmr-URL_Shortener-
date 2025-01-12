@@ -10,6 +10,7 @@ import Auth from './pages/auth';
 import Redirectlink from './pages/redirect-link';
 import CustomLink from './pages/link';
 import UrlProvider from './context';
+import RequiredAuth from './components/require-auth';
 // Use 'RouterLink' for navigation links from 'react-router-dom'.
 // Use 'CustomLink' for the custom component defined in './pages/link'.
 
@@ -25,8 +26,10 @@ const router = createBrowserRouter([
       },
       {
         path : '/dashboard',
-        element: <Dashboard/>
-
+        element:
+        <RequiredAuth>
+        <Dashboard/>
+         </RequiredAuth>
       },
       {
         path : '/auth',
@@ -35,7 +38,9 @@ const router = createBrowserRouter([
       },
       {
         path : "/link/:id",   //:id - variable for dynamic URL
-        element: <CustomLink/>
+        element: <RequiredAuth>
+        <CustomLink/>
+        </RequiredAuth>
 
       },
       {
