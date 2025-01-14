@@ -85,7 +85,7 @@ const Dashboard = () => {
       </div>
       <div className="flex justify-between">
         <h1 className="text-4xl font-extrabold">My Links </h1>
-        <Button
+        <Button title="Create Link"
           className=" border-2 border-[#36d7b7] rounded-xl 
     bg-white
     hover:bg-[#36d7b7] hover:text-white hover:font-semibold
@@ -115,7 +115,8 @@ const Dashboard = () => {
       {error && <Error message={error?.message} />}
       {(filteredUrls || []).map((url,i) => {
             return <LinkCard key={i} url={url} fetchUrls={fnUrls} / >;
-     })}
+     }
+        )}
     </div>
   );
 };
