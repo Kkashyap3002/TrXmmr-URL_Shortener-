@@ -43,7 +43,6 @@ const Login = () => {
     if (error === null && data) {
       navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
       fetchUser();
-
     }
   }, [data, error]);
 

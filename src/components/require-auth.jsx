@@ -20,7 +20,7 @@ function RequiredAuth({ children }) {
   if (isAuthenticated) {
     return children; // Don't show children when not authenticated
   }
-
+  return null;
 //   return children; // Show children only when authenticated
 }
 

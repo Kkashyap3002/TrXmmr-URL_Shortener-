@@ -17,9 +17,21 @@ const Header = () => {
     const {loading, fn:fnLogout }= useFetch(logout);
 
   return (
-    <nav className="py-4 flex justify-between items-center px-4 bg-gradient-to-r from-blue-500 via-purple-600 to-indigo-600 shadow-lg ">
+    <nav
+      className="p-4 hover:m-2 flex justify-between items-center
+    bg-gradient-to-r from-cyan-400 via-teal-500 to-blue-700
+    shadow-lg
+    border-b-2 border-black/30
+    hover:shadow-[0_15px_15px_rgba(54,215,183,0.3)]
+    transition-all duration-300  rounded-xl"
+    >
       <Link to="/" className="hover:underline">
-        <img src="/Logo.png" className="h-16 rounded-xl" alt="TrXmmr logo" />
+        <img
+          src="/Logo.png"
+          title="Go to landing page"
+          className="h-16 rounded-xl hover:border border-cyan-400"
+          alt="TrXmmr logo"
+        />
       </Link>
       <div className="space-x-4">
         {!user ? (
@@ -31,25 +43,38 @@ const Header = () => {
           </Button>
         ) : (
           <DropdownMenu>
-            <DropdownMenuTrigger className="w-10 rounded-full overflow-hidden">
+            <DropdownMenuTrigger
+              className="rounded-full overflow-hidden
+    border-2 
+    transform hover:scale-110 hover:border-[#36d7b7] 
+    transition-all duration-300 ease-in-out
+    hover:shadow-[0_0_15px_3px_rgba(54,215,183,0.6)]"
+            >
               <Avatar>
                 <AvatarImage
+                  title="Avatar"
                   src={user?.user_metadata?.profile_pic}
-                  className="object-contain "
+                  className="object-cover border-[#36d7b7]"
                 />
-                <AvatarFallback>KK</AvatarFallback>
+                <AvatarFallback className="bg-[#36d7b7]/10 text-[#36d7b7] font-semibold">
+                  KK
+                </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>{user?.user_metadata?.name}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                 <LinkIcon className="mr-2 h-4 w-4 " />
-                My Links
+            <DropdownMenuContent className="w-56 mr-2  backdrop-blur-sm border-2 border-[#36d7b7]/50 rounded-xl shadow-lg shadow-[#36d7b7]/20">
+              <DropdownMenuLabel className="font-semibold text-[#36d7b7] border-b border-[#36d7b7]/20 px-4">
+                {user?.user_metadata?.name}
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-[#36d7b7]/20" />
+              <DropdownMenuItem className="px-4 py-2 hover:bg-[#36d7b7]/10 focus:bg-[#36d7b7]/10 cursor-pointer transition-colors rounded-lg mx-1 my-1 focus:text-[#36d7b7]">
+                <Link to="/dashboard" className="flex items-center w-full">
+                  <LinkIcon className="mr-2 h-4 w-4 text-[#36d7b7]" />
+                  <span>My Links</span>
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-red-400">
-                <LogOut className="mr-2 h-4 w-45" />
-                 <span
+              <DropdownMenuItem className=" px-4 py-2 hover:bg-red-50 focus:bg-red-50 cursor-pointer transition-colors rounded-lg mx-1 my-1 text-red-500 focus:text-red-600">
+                <LogOut className="mr-2 h-4 w-4" />
+                <span
                   onClick={() => {
                     fnLogout().then(() => {
                       fetchUser();
