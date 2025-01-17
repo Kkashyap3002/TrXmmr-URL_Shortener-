@@ -37,7 +37,7 @@ const LinkCard = ({ url, fetchUrls }) => {
     >
       <div className="flex flex-1 flex-wrap items-center justify-center md:justify-start gap-4">
         <img title="qr code"
-          src={url.qr}
+          src={url?.qr}
           className="h-32 w-32 object-cover ring ring-cyan-400 rounded-2xl self-center md:self-start"
           alt="qr code"
         />
@@ -78,6 +78,8 @@ const LinkCard = ({ url, fetchUrls }) => {
           }}
         >
           <CopyPlusIcon></CopyPlusIcon>
+
+          
         </Button>
         <Button
           title="Download this QR code"

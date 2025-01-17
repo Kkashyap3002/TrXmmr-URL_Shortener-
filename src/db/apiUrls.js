@@ -33,14 +33,14 @@ export async function createUrl(
 
   const fileName = `qr-${short_url}.png`;
 
-  const fileOptions = {
-    contentType: "image/png",
-    cacheControl: "3600",
-  };
+  // const fileOptions = {
+  //   contentType: "image/png",
+  //   cacheControl: "3600",
+  // };
 
   const { error: storageError } = await supabase.storage
     .from("qrs")
-    .upload(fileName, qrcode, fileOptions);
+    .upload(fileName, qrcode);
 
   if (storageError) throw new Error(storageError.message);
 

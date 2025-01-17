@@ -22,7 +22,7 @@ const Dashboard = () => {
     error,
     data: urls,
     fn: fnUrls,
-  } = useFetch(getUrls, user?.id);
+  } = useFetch(getUrls, user.id);
   const {
     loading: loadingClicks,
     data: clicks,

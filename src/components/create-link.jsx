@@ -61,16 +61,29 @@ const CreateLink = () => {
     fn: fnCreateUrl,
   } = useFetch(createUrl, { ...formValues, user_id: user?.id });
 
+  // useEffect(() => {
+  //   console.log("Data changed:", data);
+  //   console.log("Error state:", error);
+
+  //   if (error === null && data && data[0]?.id) {
+  //     console.log("Navigating to:", `/link/${data[0].id}`);
+
+  //     setOpen(false);
+
+  //     navigate(`/link/${data[0].id}`);
+  //   }
+  // }, [error, data, navigate]);
+
+
   useEffect(() => {
-    console.log("Data changed:", data);
-    console.log("Error state:", error);
-
+    console.log("Effect triggered. Data:", data, "Error:", error);
     if (error === null && data && data[0]?.id) {
-      console.log("Navigating to:", `/link/${data[0].id}`);
-
+      console.log("Success! Redirecting...");
       setOpen(false);
-
       navigate(`/link/${data[0].id}`);
+      fnCreateUrl.reset();
+    } else if (error) {
+      console.log("Error occurred:", error);
     }
   }, [error, data, navigate]);
 
@@ -95,12 +108,9 @@ const CreateLink = () => {
       canvas.width = 1024;
       canvas.height = 1024;
       const svgData = new XMLSerializer().serializeToString(svg);
-      // const svgBlob = new Blob([svgData], {
-      //   type: "image/svg+xml;charset=utf-8",
-      // });
-      // const URL = window.URL || window.webkitURL || window;
+      console.log("Serialized SVG Data:", svgData);//debug
+     
       const svgUrl = `data:image/svg+xml;base64,${btoa(svgData)}`;
-      //-----changed----------------------------
 
       const blob = await new Promise((resolve, reject) => {
         const img = new Image();
@@ -109,30 +119,32 @@ const CreateLink = () => {
           ctx.fillRect(0, 0, canvas.width, canvas.height);
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-          //   canvas.toBlob((blob) => {
-          //     if (blob) {
-          //       resolve(blob);
-          //     } else {
-          //       reject(new Error("Blob creation failed"));
-          //     }
-          //   }, "image/png", 1.0);
-          // };
+         
           canvas.toBlob(
             (blob) => {
-              if (!blob) reject(new Error("Failed to create blob"));
-              resolve(blob);
+              //   if (!blob) reject(new Error("Failed to create blob"));
+              //   resolve(blob);
+              // },
+              if (blob) {
+                console.log("Blob created successfully:", blob);
+                resolve(blob);
+              } else {
+                console.error("Failed to create blob");
+                reject(new Error("Blob creation failed"));
+              }
             },
             "image/png",
             1.0
           );
         };
-        img.onerror = () => reject(new Error("Image loading failed"));
+        img.onerror = () => {
+          console.error("Failed to load the image for blob creation");//debug
+          reject(new Error("Image loading failed"));
+        };
         img.src = svgUrl;
       });
-      // URL.revokeObjectURL(svgUrl);
 
-      //-----changed----------------------------
-      // const blob = await new Promise((resolve) => canvas.toBlob(resolve));
+      
       if (!user?.id) {
         throw new Error("User not found");
       }
@@ -161,7 +173,9 @@ const CreateLink = () => {
         blob
       );
 
-      console.log("Create result:", result);
+      
+          console.log("Create API response:", result);
+
     } catch (e) {
       console.error("Error in createNewLink:", e);
       const newErrors = {};
