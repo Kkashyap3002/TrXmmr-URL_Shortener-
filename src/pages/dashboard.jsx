@@ -1,3 +1,4 @@
+import CreateLink from "@/components/create-link";
 import Error from "@/components/error";
 import LinkCard from "@/components/link-card";
 import { Button } from "@/components/ui/button";
@@ -85,16 +86,8 @@ const Dashboard = () => {
       </div>
       <div className="flex justify-between">
         <h1 className="text-4xl font-extrabold">My Links </h1>
-        <Button title="Create Link"
-          className=" border-2 border-[#36d7b7] rounded-xl 
-    bg-white
-    hover:bg-[#36d7b7] hover:text-white hover:font-semibold
-    transform hover:scale-105
-    transition-all duration-300 ease-in-out
-    shadow-md hover:shadow-lg hover:shadow-[#36d7b7]/50"
-        >
-          Create Link
-        </Button>
+        <CreateLink/>
+        
       </div>
       <div className="relative">
         <Input
@@ -113,10 +106,9 @@ const Dashboard = () => {
         <Filter className="text-gray-600 dark:text-white absolute top-2 right-2 p-1"></Filter>
       </div>
       {error && <Error message={error?.message} />}
-      {(filteredUrls || []).map((url,i) => {
-            return <LinkCard key={i} url={url} fetchUrls={fnUrls} / >;
-     }
-        )}
+      {(filteredUrls || []).map((url, i) => {
+        return <LinkCard key={i} url={url} fetchUrls={fnUrls} />;
+      })}
     </div>
   );
 };
