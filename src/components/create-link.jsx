@@ -61,109 +61,81 @@ const CreateLink = () => {
     fn: fnCreateUrl,
   } = useFetch(createUrl, { ...formValues, user_id: user?.id });
 
-  // useEffect(() => {
-  //   console.log("Data changed:", data);
-  //   console.log("Error state:", error);
-
-  //   if (error === null && data && data[0]?.id) {
-  //     console.log("Navigating to:", `/link/${data[0].id}`);
-
-  //     setOpen(false);
-
-  //     navigate(`/link/${data[0].id}`);
-  //   }
-  // }, [error, data, navigate]);
 
 
   useEffect(() => {
     console.log("Effect triggered. Data:", data, "Error:", error);
-    if (error === null && data && data[0]?.id) {
-      console.log("Success! Redirecting...");
+      if (error === null && data && data[0]?.id) {
+     console.log("Success! Redirecting...");
       setOpen(false);
       navigate(`/link/${data[0].id}`);
-      fnCreateUrl.reset();
-    } else if (error) {
+      } else if (error) {
       console.log("Error occurred:", error);
-    }
-  }, [error, data, navigate]);
+      }
+    }, [error, data, navigate]);
 
   const createNewLink = async () => {
-    //-----changed----------------------------
     if (!formValues) return;
 
     setErrors({});
     try {
       await schema.validate(formValues, { abortEarly: false });
-      //-----changed----------------------------
-      const svg = ref.current;
-      if (!svg) {
-        console.error("QR Code reference not found");
-        throw new Error("QR Code generation failed");
-      }
 
-      //   const canvas = ref.current?.canvasRef?.current;
-      //-----changed----------------------------
+      //
+       
+      // /* --code starts
+      // const canvas = ref.current.canvasRef.current;
       const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      canvas.width = 1024;
-      canvas.height = 1024;
-      const svgData = new XMLSerializer().serializeToString(svg);
-      console.log("Serialized SVG Data:", svgData);//debug
-     
-      const svgUrl = `data:image/svg+xml;base64,${btoa(svgData)}`;
+     const blob = await new Promise((resolve) => canvas.toBlob(resolve));
+    //  await fnCreateUrl(blob);
+      // --code ends */
+      // const ctx = canvas.getContext("2d");
+      // canvas.width = 250;
+      // canvas.height = 250;
+      // const svgData = new XMLSerializer().serializeToString(svg);
+      // console.log("Serialized SVG Data:", ctx, svgData); //debug
 
-      const blob = await new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => {
-          ctx.fillStyle = "white";
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      // // const svgUrl = `data:image/svg+xml;base64,${btoa(svgData)}`;
+      // const svgUrl = `data:image/svg+xml;base64,${btoa(
+      //   unescape(encodeURIComponent(svgData))
+      // )}`;
+      // console.log("SVG URL:", svgUrl); //debug
 
-         
-          canvas.toBlob(
-            (blob) => {
-              //   if (!blob) reject(new Error("Failed to create blob"));
-              //   resolve(blob);
-              // },
-              if (blob) {
-                console.log("Blob created successfully:", blob);
-                resolve(blob);
-              } else {
-                console.error("Failed to create blob");
-                reject(new Error("Blob creation failed"));
-              }
-            },
-            "image/png",
-            1.0
-          );
-        };
-        img.onerror = () => {
-          console.error("Failed to load the image for blob creation");//debug
-          reject(new Error("Image loading failed"));
-        };
-        img.src = svgUrl;
-      });
+      // const blob = await new Promise((resolve, reject) => {
+      //   const img = new Image();
+      //   img.onload = () => {
+      //     ctx.fillStyle = "white";
+      //     ctx.fillRect(0, 0, canvas.width, canvas.height);
+      //     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-      
-      if (!user?.id) {
-        throw new Error("User not found");
-      }
-      if (!canvas) {
-        console.error("Canvas reference not found");
-        throw new Error("QR Code generation failed");
-      }
+      //     console.log(
+      //       "Canvas verification:",
+      //       canvas,
+      //       canvas.width,
+      //       canvas.height
+      //     ); //debug
+      //     canvas.toBlob(
+      //       async (blob) => {
+      //         if (blob) {
+      //           resolve(blob);
+      //         } else {
+      //           console.error("Failed to create blob");
+      //           reject(new Error("Blob creation failed"));
+      //         }
+      //       },
+      //       "image/png",
+      //       1.0
+      //     );
+      //   };
+      //   img.onerror = () => {
+      //     console.error("Failed to load the image for blob creation"); //debug
+      //     reject(new Error("Image loading failed"));
+      //   };
+      //   img.src = svgUrl;
+      // });
 
-      // if (!(blob instanceof Blob)) {
-      //   throw new Error("Invalid QR code format");
-      // }
 
-      console.log("Blob verification:", {
-        type: blob.type,
-        size: blob.size,
-        isBlob: blob instanceof Blob,
-      });
-
-      const result = await fnCreateUrl(
+      await fnCreateUrl(
         {
           title: formValues.title,
           longUrl: formValues.longUrl,
@@ -173,11 +145,8 @@ const CreateLink = () => {
         blob
       );
 
-      
-          console.log("Create API response:", result);
-
     } catch (e) {
-      console.error("Error in createNewLink:", e);
+      
       const newErrors = {};
       e?.inner?.forEach((err) => {
         newErrors[err.path] = err.message;
@@ -186,10 +155,7 @@ const CreateLink = () => {
     }
   };
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
-
+  
   return (
     <Dialog
       open={open}
@@ -200,10 +166,6 @@ const CreateLink = () => {
         }
       }}
       className="sm:max-w-md"
-      // defaultOpen={longLink}
-      // onOpenChange={(res) => {
-      //   if (!res) setSearchParams([]);
-      // }}
     >
       <DialogTrigger>
         <Button
@@ -243,7 +205,14 @@ const CreateLink = () => {
 
         {formValues?.longUrl && (
           <div className=" p-4 rounded-xl flex items-center">
-            <QRCode value={formValues?.longUrl} size={250} ref={ref} />
+            <QRCode
+              value={formValues?.longUrl}
+              size={250}
+              ref={ref}
+              className="transition-colors duration-300 flex items-center justify-center"
+              bgColor="white"
+              fgColor="#36d7b7"
+            />
           </div>
         )}
 

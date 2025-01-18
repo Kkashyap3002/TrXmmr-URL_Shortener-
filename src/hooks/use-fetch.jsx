@@ -22,15 +22,15 @@ const useFetch = (cb, options = {}) => {
       setLoading(false);
     }
   };
-  const reset = useCallback(() => {
-    setData(null);
-    setLoading(null);
-    setError(null);
-    setCalled(false); 
-  }, []);
+  // const reset = useCallback(() => {
+  //   setData(null);
+  //   setLoading(null);
+  //   setError(null);
+  //   setCalled(false); 
+  // }, []);
 
 
-  return { data, loading, error, fn, reset };
+  return { data, loading, error, fn };
 };
 
 export default useFetch;
