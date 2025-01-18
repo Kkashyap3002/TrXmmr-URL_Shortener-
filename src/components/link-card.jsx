@@ -42,27 +42,27 @@ const LinkCard = ({ url, fetchUrls }) => {
           alt="qr code"
         />
 
-        <Link
-          to={`/link/${url.id}`}
-          className="flex flex-col flex-1 text-center md:text-left"
-        >
-          <span title="Title of the link" className=" text-3xl font-bold hover:underline cursor-pointer">
-            {url?.title}
-          </span>
-          <span title="shortened url" className="text-blue-600 text-xl font-bold hover:underline cursor-pointer">
-            https://trXmmr.in/
-            {url?.custom_url ? url?.custom_url : url?.short_url}
-          </span>
-          <span title ="original url" className="flex items-center justify-center md:justify-start gap-1 hover:underline cursor-pointer">
-            {url?.original_url}
-          </span>
-          <span title="created at" className="flex items-end justify-center md:justify-start font-extralight text-sm flex-1">
-            {new Date(url?.created_at).toLocaleString()}
-          </span>
-        </Link>
-      </div>
+          <Link
+            to={`/link/${url.id}`}
+            className="flex flex-col flex-1 text-center md:text-left"
+          >
+            <span title="Title of the link" className=" text-3xl font-bold hover:underline cursor-pointer">
+              {url?.title}
+            </span>
+            <span title="shortened url" className="text-blue-600 text-xl font-bold hover:underline cursor-pointer">
+              https://trXmmr.in/
+              {url?.custom_url ? url?.custom_url : url?.short_url}
+            </span>
+            <span title ="original url" className="flex items-center justify-center md:justify-start gap-1 hover:underline cursor-pointer">
+              {url?.original_url}
+            </span>
+            <span title="created at" className="flex items-end justify-center md:justify-start font-extralight text-sm flex-1">
+              {new Date(url?.created_at).toLocaleString()}
+            </span>
+          </Link>
+        </div>
 
-      <div className="flex gap-2 flex-wrap justify-center mx-2 my-1">
+              <div className="flex gap-2 flex-wrap justify-center mx-2 my-1">
         <Button
           title="Copy this link"
           className=" border-[1.25px] border-[#36d7b7] 
