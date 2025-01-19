@@ -104,6 +104,9 @@ Users can create an account or log in to access their shortened URLs and analyti
 ![Login](images/login.png)
 ![Signup](images/signup.png)
 
+## gitDiagram: 
+![Diagram](images/projectgraph.pdf)
+
 
 ## Contributing
 Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
