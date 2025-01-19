@@ -93,7 +93,7 @@ Users can enter a long URL and click the "Shorten it!" button to generate a shor
 
 ### 3. Dashboard
 After logging in, users can view their dashboard, which displays the total clicks and a list of their shortened links.
-![URL Stats](images/dashboard_page.png)
+![Dashboard](images/dashboard_page.png)
 
 ### 4. URL Stats
 Clicking on a shortened URL will show detailed statistics, including total clicks, location data, and device information.
