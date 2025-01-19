@@ -105,7 +105,7 @@ Users can create an account or log in to access their shortened URLs and analyti
 ![Signup](images/signup.png)
 
 ## gitDiagram: 
-![Diagram](images/projectgraph.pdf)
+![Diagram](images/projectgraph.png)
 
 
 ## Contributing
