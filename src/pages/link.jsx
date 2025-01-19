@@ -1,3 +1,6 @@
+import Device from "@/components/device-stats";
+import DeviceStats from "@/components/device-stats";
+import Location from "@/components/location-stats";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UrlState } from "@/context";
@@ -11,43 +14,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { BarLoader, BeatLoader } from "react-spinners";
 
 const CustomLink = () => {
-  // const downloadImage = () => {
-  //   const imageUrl = url?.qr;
-  //   const fileName = url?.title;
-
-  //   const anchor = document.createElement("a");
-  //   anchor.href = imageUrl;
-  //   anchor.download = fileName;
-  //   document.body.appendChild(anchor);
-
-  //   anchor.click();
-
-  //   document.body.removeChild(anchor);
-  // };
-  // const downloadImage = () => {
-  //   const imageUrl = url?.qr; // The URL of the image
-  //   const fileName = url?.title || "download"; // The file name
-
-  //   // Create a new blank tab
-  //   const newTab = window.open("", "_blank");
-  //   if (newTab) {
-  //     // Write the HTML to the new tab
-  //     newTab.document.write(`
-  //     <html>
-  //       <head>
-  //         <title>Download Image</title>
-  //       </head>
-  //       <body style="display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
-  //         <img src="${imageUrl}" alt="${fileName}" style="max-width: 90%; max-height: 90%;" />
-  //         <a href="${imageUrl}" download="${fileName}" style="position: absolute; bottom: 20px; text-decoration: none; color: white; background: #36d7b7; padding: 10px 20px; border-radius: 5px; font-size: 16px;">Download Image</a>
-  //       </body>
-  //     </html>
-  //   `);
-  //     // Close the document to finish loading the content
-  //     newTab.document.close();
-  //   }
-  // };
-
   const downloadImage = () => {
     const imageUrl = url?.qr; // The URL of the image
     const fileName = url?.title || "qr_project"; // Default filename for download
@@ -72,7 +38,7 @@ const CustomLink = () => {
           </div>
         </body>
         <script>
-          // Handle local download on button click
+          
           document.getElementById('downloadImageButton').addEventListener('click', function() {
             const anchor = document.createElement('a');
             anchor.href = '${imageUrl}';
@@ -131,16 +97,24 @@ const CustomLink = () => {
       {(loading || loadingStats) && (
         <BarLoader width={"100%"} color="#36d7b7" />
       )}
-      <div className="mt-6 px-3 flex flex-col sm:flex-row gap-8  break-words overflow-hidden text-ellipsis">
+      <div className="mt-6 p-3 flex flex-col sm:flex-row gap-4">
         {/* Link + QR Code Container */}
-        <div className="flex flex-col gap-8 sm:w-2/5 p-4 hover:bg-transparent hover:shadow-lg hover:shadow-[#36d7b7]/30 transition-all duration-300 ease-in-out rounded-xl border border-[#36d7b7] break-words overflow-hidden text-ellipsis">
+        <div
+          className="flex flex-col gap-8 sm:w-1/2 p-4 
+  flex-wrap items-center bg-[#030817]
+  hover:bg-[#36d7b7]/5
+  transform hover:scale-[103%]
+  shadow-md 
+  cursor-pointer  md:flex-row hover:shadow-lg hover:shadow-[#36d7b7]/30 transition-all duration-300 ease-in-out 
+  rounded-xl border border-[#36d7b7] break-words overflow-hidden text-ellipsis"
+        >
           {/* Link Section */}
           <div className="flex flex-col items-start gap-8 break-words ">
             <span className="font-serif text-6xl font-extrabold hover:underline cursor-pointer">
               {url?.title}
             </span>
             <a
-              className="font-sans text-3xl sm:text-4xl dark:hover:text-[#3441ff] light:hover:text-[#36d7b7] font-extrabold hover:underline cursor-pointer overflow-hidden text-ellipsis"
+              className="font-sans text-3xl sm:text-4xl  light:hover:text-[#36d7b7] font-extrabold hover:underline cursor-pointer overflow-hidden text-ellipsis"
               href={`https://trXmmr.in/${link}`}
               target="_blank"
               rel="noreferrer"
@@ -189,7 +163,6 @@ const CustomLink = () => {
                 variant="ghost"
                 target="_blank"
                 onClick={downloadImage}
-
               >
                 <Download />
               </Button>
@@ -222,16 +195,24 @@ const CustomLink = () => {
         </div>
 
         {/* Stats Container */}
-        <Card className="sm:w-3/5">
-          <CardHeader>
-            <CardTitle className="text-4xl font-extrabold"> Stats </CardTitle>
+        <Card
+          className="sm:w-1/2 rounded-2xl border-[#36d7b7] border-2
+  
+  hover:bg-[#36d7b7]/5
+  transform hover:scale-[102%]
+  transition-all duration-300 ease-in-out
+  shadow-md hover:shadow-lg hover:shadow-[#36d7b7]/30
+  cursor-pointer "
+        >
+          <CardHeader className="flex items-center justify-center rounded-xl">
+            <CardTitle className="text-4xl font-extrabold "> Stats </CardTitle>
           </CardHeader>
 
           {stats && stats?.length ? (
             <CardContent className="flex flex-col gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl font-extrabold">
+                  <CardTitle className="text-2xl font-extrabold  rounded-2xl">
                     Total Clicks
                   </CardTitle>
                 </CardHeader>
@@ -239,12 +220,13 @@ const CustomLink = () => {
                   <p> {stats.length} </p>
                 </CardContent>
               </Card>
-              <CardTitle className="text-2xl font-extrabold">Location Data</CardTitle>
-              {/* {<Location stats = {stats} />} */}
+              <CardTitle className="text-2xl font-extrabold">
+                Location Data
+              </CardTitle>
+              {<Location stats={stats} />}
 
               <CardTitle> Device Info</CardTitle>
-               {/* {<Location stats = {stats} />} */}
-
+              {<Device stats = {stats} />}
             </CardContent>
           ) : (
             <CardContent>
